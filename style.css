@@ -290,4 +290,31 @@ footer {
   input, textarea, button {
     font-size: 13px;
   }
+
+  /* 📱 Mobilná verzia hlavičky a vlajok */
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 15px;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 32px;
+  }
+
+  .lang-switch {
+    position: static;
+    margin-top: 10px;
+    justify-content: center;
+  }
+
+  .lang-switch button {
+    font-size: 8px;
+    padding: 2px 4px;
+  }
+
+  .lang-switch button img {
+    width: 10px;
+  }
 }
