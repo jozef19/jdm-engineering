@@ -299,14 +299,17 @@ footer {
     text-align: center;
   }
 
-  header h1 {
-    font-size: 32px;
-  }
-
+  /* 🏳️ Vlajky nad nadpis */
   .lang-switch {
     position: static;
-    margin-top: 10px;
+    margin-bottom: 10px;   /* medzera pod vlajkami */
     justify-content: center;
+    order: -1;             /* dá vlajky nad nadpis */
+  }
+
+  header h1 {
+    font-size: 32px;
+    order: 1;              /* nadpis pod vlajkami */
   }
 
   .lang-switch button {
