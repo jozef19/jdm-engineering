@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-translate="contact-title">Kontakt | JDM Engineering</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="translations.js"></script>
+
+ 
+</head>
+
+<body>
+<header>
+  <h1>JDM Engineering</h1>
+   <div class="lang-switch">
+  <button data-lang="sk"><img src="flags/sk.svg" alt="SK" width="20"> SK</button>
+  <button data-lang="cz"><img src="flags/cz.svg" alt="CZ" width="20"> CZ</button>
+  <button data-lang="en"><img src="flags/en.svg" alt="EN" width="20"> EN</button>
+  <button data-lang="de"><img src="flags/de.svg" alt="DE" width="20"> DE</button>
+  <button data-lang="pl"><img src="flags/pl.svg" alt="PL" width="20"> PL</button>
+</div>
+</header>
+
+ <nav>
+    <a href="index.html" data-translate="nav-home">Domov</a>
+    <a href="about.html" data-translate="nav-about">O nás</a>
+    <a href="services.html" data-translate="nav-services">Služby</a>
+    <a href="contact.html" data-translate="nav-contact">Kontakt</a>
+  </nav>
+
+<div class="container card">
+  <h2 data-translate="contact-title">Kontaktujte nás</h2>
+  <p data-translate="contact-text">
+    Radi vám pripravíme cenovú ponuku alebo poradíme s vaším projektom.
+  </p>
+
+  <form id="contactForm" action="https://formspree.io/f/xeovqzqw" method="POST">
+    <input type="hidden" name="_subject" value="Nová správa z webu JDM Engineering">
+
+    <label data-translate="contact-name">Meno</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label data-translate="contact-email">Email</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label data-translate="contact-message">Správa</label><br>
+    <textarea name="message" rows="5" required></textarea><br><br>
+
+    <button type="submit" data-translate="contact-send">Odoslať</button>
+  </form>
+
+  <div class="success-message" id="successMessage" data-translate="contact-success">
+    ✅ Ďakujeme! Vaša správa bola úspešne odoslaná.
+  </div>
+  <div class="error-message" id="errorMessage" data-translate="contact-error">
+    ❌ Nastala chyba pri odosielaní formulára. Skúste to prosím znova.
+  </div>
+</div>
+
+<footer data-translate="footer">
+  © 2025 JDM Engineering – Všetky práva vyhradené
+</footer>
+
+<script>
+
+const buttons = document.querySelectorAll('.lang-switch button');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    setLanguage(lang);
+  });
+});
+
+
+  function setLanguage(lang) {
+    document.querySelectorAll('[data-translate]').forEach(el => {
+      const key = el.dataset.translate;
+      el.innerHTML = translations[lang][key] || translations['sk'][key] || '';
+    });
+    const titleEl = document.querySelector('title[data-translate]');
+    if(titleEl) titleEl.innerHTML = translations[lang]['about-title'] || translations['sk']['about-title'];
+    localStorage.setItem('selectedLanguage', lang);
+  }
+
+  // tlačidlá prepínania jazyka
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  });
+
+  // automatické nastavenie jazyka pri načítaní stránky
+  window.addEventListener('DOMContentLoaded', () => {
+    let lang = localStorage.getItem('selectedLanguage');
+    if(!lang || !['sk','en','cz','de','pl'].includes(lang)){
+      lang = navigator.language.slice(0,2).toLowerCase();
+      if(!['sk','en','cz','de','pl'].includes(lang)) lang = 'sk';
+    }
+    setLanguage(lang);
+  });
+
+
+  // odoslanie formulára s AJAX
+  document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      form.reset();
+      document.getElementById("successMessage").style.display = "block";
+      document.getElementById("errorMessage").style.display = "none";
+    } else {
+      document.getElementById("successMessage").style.display = "none";
+      document.getElementById("errorMessage").style.display = "block";
+    }
+  });
+</script>
+</body>
+</html>

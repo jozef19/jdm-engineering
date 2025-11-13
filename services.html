@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-translate="services-title">Služby | JDM Engineering</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="translations.js"></script>
+</head>
+
+<body>
+<header>
+  <h1>JDM Engineering</h1>
+   <div class="lang-switch">
+  <button data-lang="sk"><img src="flags/sk.svg" alt="SK" width="20"> SK</button>
+  <button data-lang="cz"><img src="flags/cz.svg" alt="CZ" width="20"> CZ</button>
+  <button data-lang="en"><img src="flags/en.svg" alt="EN" width="20"> EN</button>
+  <button data-lang="de"><img src="flags/de.svg" alt="DE" width="20"> DE</button>
+  <button data-lang="pl"><img src="flags/pl.svg" alt="PL" width="20"> PL</button>
+</div>
+</header>
+
+ <nav>
+    <a href="index.html" data-translate="nav-home">Domov</a>
+    <a href="about.html" data-translate="nav-about">O nás</a>
+    <a href="services.html" data-translate="nav-services">Služby</a>
+    <a href="contact.html" data-translate="nav-contact">Kontakt</a>
+  </nav>
+
+<div class="container card">
+  <h2 data-translate="services-title">Naše služby</h2>
+  <ul>
+    <li data-translate="services-li1">
+      <strong>3D modelovanie</strong> – tvorba detailných 3D modelov dielov a zostáv podľa požiadaviek zákazníka.
+    </li>
+    <li data-translate="services-li2">
+      <strong>Výkresová dokumentácia</strong> – kompletné výkresy pre výrobu vrátane kótovania a tolerancií.
+    </li>
+    <li data-translate="services-li3">
+      <strong>Konštrukčné návrhy a vylepšenia</strong> – návrh nových riešení alebo modernizácia existujúcich projektov.
+    </li>
+    <li data-translate="services-li4">
+      <strong>Pevnostná analýza</strong> – statické a dynamické analýzy pre overenie návrhu.
+    </li>
+    <li data-translate="services-li5">
+      <strong>Analýza rámových konštrukcií</strong> – kontrola tuhosti, únosnosti a optimalizácia rámov.
+    </li>
+  </ul>
+</div>
+
+<footer data-translate="footer">
+  © 2025 JDM Engineering – Všetky práva vyhradené
+</footer>
+
+<script>
+
+const buttons = document.querySelectorAll('.lang-switch button');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    setLanguage(lang);
+  });
+});
+
+
+  function setLanguage(lang) {
+    document.querySelectorAll('[data-translate]').forEach(el => {
+      const key = el.dataset.translate;
+      el.innerHTML = translations[lang][key] || translations['sk'][key] || '';
+    });
+    const titleEl = document.querySelector('title[data-translate]');
+    if(titleEl) titleEl.innerHTML = translations[lang]['about-title'] || translations['sk']['about-title'];
+    localStorage.setItem('selectedLanguage', lang);
+  }
+
+  // tlačidlá prepínania jazyka
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  });
+
+  // automatické nastavenie jazyka pri načítaní stránky
+  window.addEventListener('DOMContentLoaded', () => {
+    let lang = localStorage.getItem('selectedLanguage');
+    if(!lang || !['sk','en','cz','de','pl'].includes(lang)){
+      lang = navigator.language.slice(0,2).toLowerCase();
+      if(!['sk','en','cz','de','pl'].includes(lang)) lang = 'sk';
+    }
+    setLanguage(lang);
+  });
+</script>
+</body>
+</html>
