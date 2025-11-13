@@ -320,12 +320,17 @@ footer {
 
   /* 📱 Mobilná verzia navigácie */
   nav {
-    padding: 10px 0;
+    padding: 8px 5px;
+    display: flex;               /* flexbox layout */
+    flex-wrap: nowrap;           /* nezalomí odkazy */
+    justify-content: center;     /* centrovanie odkazov */
+    overflow-x: auto;            /* ak sa nezmestia, dá sa posúvať */
   }
 
   nav a {
-    font-size: 18px;        /* menší text */
-    margin: 0 10px;         /* menšie medzery */
-    display: inline-block;  /* odkazy vedľa seba */
+    font-size: 16px;             /* menší text */
+    margin: 0 6px;               /* menšie medzery */
+    display: inline-block;
+    white-space: nowrap;         /* zabráni zalomeniu textu */
   }
 }
