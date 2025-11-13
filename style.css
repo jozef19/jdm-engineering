@@ -317,4 +317,15 @@ footer {
   .lang-switch button img {
     width: 10px;
   }
+
+  /* 📱 Mobilná verzia navigácie */
+  nav {
+    padding: 10px 0;
+  }
+
+  nav a {
+    font-size: 18px;        /* menší text */
+    margin: 0 10px;         /* menšie medzery */
+    display: inline-block;  /* odkazy vedľa seba */
+  }
 }
